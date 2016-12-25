@@ -1,0 +1,55 @@
+<!doctype html> 
+<html> 
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <style>
+            body { 
+                font-family: 'Roboto', sans-serif;
+                background-color: #2a2d33;
+                color: white;
+            }
+        </style>
+        <title>Logs</title>
+        <h2>Logs</h2>
+    </head>
+<body>
+    <ul>
+        {{range .}}
+            <div class="channel" id="{{.}}">
+                {{.}} <br>
+                <input type="text">
+                <input type="button" value="Go">
+                <br>
+            </div>
+        {{end}}
+    </ul>
+</body>
+<script> 
+
+function openLogs(channel, filter) {
+    console.log(channel, filter)
+    var url = channel + '?limit=200&filter=' + filter 
+    window.open(url, target='_blank')
+}
+
+var channels = document.getElementsByClassName('channel')
+console.log(channels)
+for (var i = 0; i < channels.length; i++) {
+    (function(channel) {
+        console.log(channel)
+        console.log(channel.id)
+        var id = channel.id 
+        channel.children[2].onclick = function(ev) {
+            console.log(ev)
+            openLogs(id, channel.children[1].value)
+        }
+        channel.children[1].onkeydown = function(ev) {
+            console.log(ev)
+            if (ev.code === 'Enter') {
+                openLogs(id, channel.children[1].value)
+            }
+        }
+    })(channels[i])
+}
+</script>
+</html>

@@ -1,0 +1,5 @@
+*.exe 
+*.exe~ 
+/chatlog 
+/logs
+/vendor/golang.org

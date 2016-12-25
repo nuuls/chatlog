@@ -1,0 +1,33 @@
+<!doctype html> 
+<html> 
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <style>
+            body { 
+                font-family: 'Roboto', sans-serif;
+                background-color: #2a2d33;
+                color: white;
+            }
+            .timestamp {
+                font-size: 14px;
+            }
+            .username {
+            }
+        </style>
+        <title>{{.Channel}}</title>
+        <h2>{{.Channel}}</h2>
+    </head>
+<body>
+    <ul>
+        {{range .Messages}}
+            <div class="chatline">
+                <span class="timestamp">{{.TimeStamp}}</span>
+                <span class="username" style="color:{{.Color}};">
+                    <b>{{.Username}}</b>
+                </span>: 
+                {{ .TextWithEmotes }}
+            </div>
+        {{end}}
+    </ul>
+</body>
+</html>
