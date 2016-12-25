@@ -122,13 +122,24 @@ func getLogs(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-	if limitBytes > 1024*1024*3 { // 3 MB
-		limitBytes = 1024 * 1024 * 3
+	if limitBytes > 1024*1024 { // 1 MB
+		limitBytes = 1024 * 1024
 	}
 	buf := bufio.NewReaderSize(file, int(limitBytes))
 	lines := make([]*Message, 0, 300)
 	i := 0
+	start := time.Now()
 	for {
+		if i%50 == 0 && i > 300 {
+			if time.Since(start) > time.Second*3 {
+				w.WriteHeader(400)
+				w.Write([]byte(`<!doctype html><html><body>
+                nice Server
+                <img src="https://cdn.betterttv.net/emote/550b225fff8ecee922d2a3b2/2x">
+                </body></html>`))
+				return
+			}
+		}
 		i++
 		line, err := buf.ReadBytes('\n')
 		if err != nil {
