@@ -60,7 +60,7 @@ func parseMessage(line string) *Message {
 	}
 	tags, middle, text := spl[0], spl[1], spl[2]
 	if strings.HasPrefix(text, "\u0001ACTION") {
-		text = text[7 : len(text)-1]
+		text = text[8 : len(text)-1]
 	}
 	msg := &Message{
 		Time: time.Now(),
