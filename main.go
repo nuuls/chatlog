@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	_ "net/http/pprof"
 	"os"
 	"os/signal"
 	"time"
@@ -24,6 +25,9 @@ var cfg *config
 var timeZone *time.Location
 
 func main() {
+	go func() {
+		panic(http.ListenAndServe("localhost:7733", nil))
+	}()
 	timeZone, _ = time.LoadLocation("CET")
 	loadConfig()
 	logrus.SetFormatter(&logrus.TextFormatter{
