@@ -10,6 +10,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -59,10 +60,16 @@ func index(w http.ResponseWriter, r *http.Request) {
 	templ.ExecuteTemplate(w, "index.html", cfg.Channels)
 }
 
+var validChannel = regexp.MustCompile(`^\w{1,30}$`)
+
 func (a *api) channelCtx(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cName := chi.URLParam(r, "channel")
 		cName = strings.ToLower(cName)
+		if !validChannel.MatchString(cName) {
+			http.Error(w, "Not Found", 404)
+			return
+		}
 		a.irc.mu.RLock()
 		defer a.irc.mu.RUnlock()
 		l := a.irc.channels[cName]

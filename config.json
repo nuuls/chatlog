@@ -1,4 +1,5 @@
 {
+    "logLevel": 5,
     "host": ":7123",
     "ircServer": "irc.chat.twitch.tv:443",
     "logPath": "logs",

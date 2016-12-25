@@ -102,7 +102,7 @@ func (i *Irc) handleMessage(line string) {
 }
 
 func (i *Irc) send(msg string) error {
-	logrus.Info(msg)
+	logrus.Debug(msg)
 	_, err := i.conn.Write([]byte(msg + "\r\n"))
 	if err != nil {
 		logrus.Error(err)
