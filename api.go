@@ -204,7 +204,7 @@ func messageWithEmotes(msg *Message) {
 
 		}
 		escaped = strings.Replace(escaped, emote.Name,
-			`<img src="`+url+`" alt="`+emote.Name+`">`,
+			`<img src="`+url+`" class="emote" alt="`+emote.Name+`">`,
 			-1)
 	}
 	msg.TextWithEmotes = template.HTML(escaped)
