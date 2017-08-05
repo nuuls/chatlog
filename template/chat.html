@@ -16,12 +16,15 @@
             .emote {
                 height: 1.5em;
             }
+            .chatlines {
+                padding: 0.5em;
+            }
         </style>
         <title>{{.Channel}}</title>
         <h2>{{.Channel}}</h2>
     </head>
 <body>
-    <ul>
+    <ul class="chatlines">
         {{range .Messages}}
             <div class="chatline">
                 <span class="timestamp">{{.TimeStamp}}</span>
